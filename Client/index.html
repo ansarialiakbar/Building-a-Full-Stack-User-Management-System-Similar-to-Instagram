@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User page</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+   
+        <div class="container">
+            <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg" alt="Profile Image" class="profile-image">
+            <h2 id="userName" class="username">John Doe</h2>
+            <p id="userBio" class="bio">Software Engineer</p>
+            <p id="userEmail" class="follower-count">Email: getting</p>
+            <p  class="follower-count">Followers: 1000</p>
+        </div>
+    
+</body>
+<script>
+    const userData = async()=>{
+        try {
+            const resp = await fetch("http://localhost:8081",{
+                method:"GET",
+            credentials:"include"
+            })
+            if(resp.status!==200){window.location.href="http://localhost:5500/client/login.html"}
+            const {data} = await resp.json()
+            const userName = document.getElementById("userName")
+            const userEmail = document.getElementById("userEmail")
+            const userBio = document.getElementById("userBio")
+            userName.innerText = data.userName
+            userEmail.innerText = data.userEmail
+            userBio.innerText = data.userBio
+        } catch (error) {
+            console.log(error.message);
+            window.location.href="http://localhost:5500/client/login.html"
+        }
+    }
+    userData()
+</script>
+</html>

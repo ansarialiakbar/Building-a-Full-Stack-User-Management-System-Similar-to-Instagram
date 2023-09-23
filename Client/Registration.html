@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Instagram Signup</h1>
+        <form action="">
+            <div class="form-group">
+                <label for="name">Name</label><br>
+                <input type="text" id="name" name="name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label><br>
+                <input type="text" id="username" name="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label><br>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio</label><br>
+                <input type="text" id="bio" name="bio" placeholder="Enter your bio">
+            </div>
+            <button id="submit" type="submit" class="btn">Sign Up</button>
+        </form>
+        <div class="links">
+            <a href="#">Forgot password</a>
+            <a href="./Login.html">Log In</a>
+        </div>
+    </div>
+</body>
+<script>
+    const formSubmit = document.getElementById("submit")
+    formSubmit.addEventListener("click", (event)=>{
+        event.preventDefault()
+        const userName = document.getElementById("username").value
+        const userEmail = document.getElementById("email").value
+        const userPassword = document.getElementById("password").value
+        const nameOfUser= document.getElementById("name").value
+        const userBio = document.getElementById("bio").value
+        if(!userName && userPassword && userEmail && nameOfUser &&  userBio){
+          return  alert("All input fields are required")
+        }
+        const userData = {
+            name:nameOfUser,
+            username:userName,
+            email:userEmail,
+            password:userPassword,
+            bio:userBio
+        }
+        registerUser(userData)
+    })
+    const registerUser = async(payload)=>{
+        try {
+            const resp = await fetch("http://localhost:8081/signup",{
+               method:"POST",
+               headers:{"content-type": "application/json",  
+            },
+               body:JSON.stringify(payload)
+            })
+            const data = await resp.json()
+            console.log(data)
+        window.location.href="http://localhost:5500/client/login.html"
+        } catch (error) {
+            console.log(error.message);
+        }
+
+              const resp = await fetch("http://localhost:8081/signup",{
+               method:"POST",
+               headers:{"content-type": "application/json"},
+               body:json.stringify(payload)
+            })
+
+            const data = await resp.json()
+            console.log(data)
+        window.location.href="http://localhost:5500/client/login.html"
+    }
+</script>
+</html>
